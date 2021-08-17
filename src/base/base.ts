@@ -1,10 +1,10 @@
 const html = `
-    <div>Hello world</div>
+    <slot></slot>
 `
 
 const css = `
-    div {
-        color: red;
+    :host {
+        --carica-color_undefined: #ff00ff;
     }
 `
 

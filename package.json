@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "wds --node-resolve -p 3000",
+    "clean": "rm -rf dist",
     "build": "tsc",
     "demo": "npm-run-all --parallel 'build -- --watch' 'start -- --watch'",
     "test": "npm run build && wtr --node-resolve ./dist/**/*.spec.js"
