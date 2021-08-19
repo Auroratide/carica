@@ -24,4 +24,10 @@ export class CaricaBase extends HTMLElement {
             .attachShadow({ mode: 'open' })
             .appendChild(template.content.cloneNode(true))
     }
+
+    connectedCallback() {
+        this.style.setProperty('--carica_skin-color', this.skin)
+    }
+
+    get skin(): string { return this.getAttribute('skin') ?? '' }
 }

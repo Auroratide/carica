@@ -8,4 +8,14 @@ describe('carica-base', () => {
 
         expect(el).not.to.be.null
     })
+
+    describe('skin color', () => {
+        it('hex', async () => {
+            const el = await fixture<CaricaBase>(html`
+                <carica-base skin="#123456"></carica-base>
+            `)
+    
+            expect(getComputedStyle(el).getPropertyValue('--carica_skin-color')).to.equal('#123456')
+        })
+    })
 })
