@@ -8,7 +8,9 @@ const html = `
 `
 
 const css = `
-    
+    svg {
+        position: absolute;
+    }
 `
 
 const template = document.createElement('template')
