@@ -5,6 +5,9 @@ const html = `
 const css = `
     :host {
         --carica-color_undefined: #ff00ff;
+
+        display: block;
+        position: relative;
     }
 `
 
