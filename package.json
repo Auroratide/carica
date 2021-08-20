@@ -7,9 +7,9 @@
   "scripts": {
     "start": "wds --node-resolve -p 3000",
     "clean": "rm -rf dist",
-    "build": "tsc",
+    "build": "tsc && copyfiles -u 1 -e 'src/**/*.ts' 'src/**/*' dist",
     "demo": "npm-run-all --parallel 'build -- --watch' 'start -- --watch'",
-    "test": "npm run clean && npm run build && wtr --node-resolve ./dist/**/*.spec.js"
+    "test": "npm run clean && npm run build && wtr --node-resolve 'dist/**/*.spec.js'"
   },
   "author": {
     "name": "Timothy Foster",
@@ -20,6 +20,7 @@
     "@open-wc/testing": "^2.5.33",
     "@web/dev-server": "^0.1.21",
     "@web/test-runner": "^0.13.16",
+    "copyfiles": "^2.4.1",
     "npm-run-all": "^4.1.5",
     "typescript": "^4.3.5"
   }
