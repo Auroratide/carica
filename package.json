@@ -7,7 +7,8 @@
   "scripts": {
     "start": "wds --node-resolve -p 3000",
     "clean": "rm -rf dist",
-    "build": "tsc && copyfiles -u 1 -e 'src/**/*.ts' 'src/**/*' dist",
+    "build": "tsc",
+    "postbuild": "copyfiles -u 1 -e 'src/**/*.ts' 'src/**/*' dist",
     "demo": "npm-run-all --parallel 'build -- --watch' 'start -- --watch'",
     "test": "npm run clean && npm run build && wtr --node-resolve 'dist/**/*.spec.js'"
   },
