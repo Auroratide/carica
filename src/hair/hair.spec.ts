@@ -3,11 +3,13 @@ import { CaricaHair } from './hair'
 import './define'
 
 describe('carica-hair', () => {
-    it('rendering', async () => {
+    it('src provided', async () => {
         const el = await fixture<CaricaHair>(html`
             <carica-hair src="example-library/hair.svg"></carica-hair>
         `)
 
-        expect(el.shadowRoot?.querySelector('img')?.src).to.contain('hair.svg')
+        await new Promise(resolve => setTimeout(resolve, 10))
+
+        expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 })

@@ -3,11 +3,13 @@ import { CaricaEyes } from './eyes'
 import './define'
 
 describe('carica-eyes', () => {
-    it('rendering', async () => {
+    it('src provided', async () => {
         const el = await fixture<CaricaEyes>(html`
-            <carica-eyes src="example-library/eyes.svg"></carica-eyes>
+            <carica-eyes src="example-library/hair.svg"></carica-eyes>
         `)
 
-        expect(el.shadowRoot?.querySelector('img')?.src).to.contain('eyes.svg')
+        await new Promise(resolve => setTimeout(resolve, 10))
+
+        expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 })
