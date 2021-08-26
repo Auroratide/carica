@@ -32,8 +32,8 @@ const css = `
 const template = document.createElement('template')
 template.innerHTML = `<style>${css}</style>${html}`
 
-export class CaricaBase extends HTMLElement {
-    static elementName = 'carica-base'
+export class CaricaCharacter extends HTMLElement {
+    static elementName = 'carica-character'
 
     constructor() {
         super()
