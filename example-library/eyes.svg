@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-    <ellipse
-        transform="matrix(0.99943045,0.03374568,-0.03458341,0.99940182,0,0)"
-        ry="74.002686"
-        rx="35.875053"
-        cy="553.57898"
-        cx="772.99841"
-        fill="var(--carica_eye-color, var(--carica-color_undefined))" />
-    <ellipse
-        transform="rotate(1.9575748)"
-        cx="508.13629"
-        cy="560.36438"
-        rx="47.508709"
-        ry="79.549515"
-        fill="var(--carica_eye-color, var(--carica-color_undefined))" />
-    <path
-        d="m 395.83559,544.04745 c 0,0 22.98535,-55.53357 79.02226,-60.89864 56.03691,-5.36507 85.33246,36.49618 85.33246,36.49618 0,0 -41.18647,-15.58444 -81.27197,-9.97081 -40.08547,5.61364 -83.08275,34.37327 -83.08275,34.37327 z"
-        fill="var(--carica_eyelash-color, var(--carica-color_undefined))" />
-    <path
-        d="m 696.29027,528.46657 c 0,0 20.93864,-37.44204 60.42526,-33.94481 39.48664,3.49722 43.77944,44.84663 43.77944,44.84663 0,0 -17.69444,-23.43971 -45.82707,-25.10082 -28.13262,-1.66112 -58.37763,14.199 -58.37763,14.199 z"
-        fill="var(--carica_eyelash-color, var(--carica-color_undefined))" />
-    <ellipse
-        transform="rotate(1.9575748)"
-        ry="18.123203"
-        rx="11.526438"
-        cy="524.00171"
-        cx="530.52979"
-        fill="var(--carica_eyeshine-color, var(--carica-color_white))" />
-    <ellipse
-        transform="matrix(0.99946036,0.03284801,-0.03557845,0.99936689,0,0)"
-        cx="790.96503"
-        cy="521.34875"
-        rx="8.0082188"
-        ry="14.80377"
-        fill="var(--carica_eyeshine-color, var(--carica-color_white))" />
-    <path
-        d="m 425.20766,400.99614 c 18.73091,-15.08425 41.45831,-25.7503 77.68968,-10.73185 -32.12738,-7.53321 -55.77912,-0.37791 -77.68968,10.73185 z"
-        fill="var(--carica_hairshadow-color, var(--carica-color_undefined))" />
-    <path
-        d="m 745.07765,400.47573 c 15.79135,-7.12758 32.78934,-9.36436 50.81857,13.95483 -17.62505,-15.82159 -34.19728,-16.8056 -50.81857,-13.95483 z"
-        fill="var(--carica_hairshadow-color, var(--carica-color_undefined))" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" viewBox="0 0 1000 1000">
+    <g carica:layer="face">
+        <ellipse
+            transform="matrix(0.99943045,0.03374568,-0.03458341,0.99940182,0,0)"
+            ry="74.002686"
+            rx="35.875053"
+            cy="553.57898"
+            cx="772.99841"
+            fill="var(--carica_eye-color, var(--carica-color_undefined))" />
+        <ellipse
+            transform="rotate(1.9575748)"
+            cx="508.13629"
+            cy="560.36438"
+            rx="47.508709"
+            ry="79.549515"
+            fill="var(--carica_eye-color, var(--carica-color_undefined))" />
+        <path
+            d="m 395.83559,544.04745 c 0,0 22.98535,-55.53357 79.02226,-60.89864 56.03691,-5.36507 85.33246,36.49618 85.33246,36.49618 0,0 -41.18647,-15.58444 -81.27197,-9.97081 -40.08547,5.61364 -83.08275,34.37327 -83.08275,34.37327 z"
+            fill="var(--carica_eyelash-color, var(--carica-color_undefined))" />
+        <path
+            d="m 696.29027,528.46657 c 0,0 20.93864,-37.44204 60.42526,-33.94481 39.48664,3.49722 43.77944,44.84663 43.77944,44.84663 0,0 -17.69444,-23.43971 -45.82707,-25.10082 -28.13262,-1.66112 -58.37763,14.199 -58.37763,14.199 z"
+            fill="var(--carica_eyelash-color, var(--carica-color_undefined))" />
+        <ellipse
+            transform="rotate(1.9575748)"
+            ry="18.123203"
+            rx="11.526438"
+            cy="524.00171"
+            cx="530.52979"
+            fill="var(--carica_eyeshine-color, var(--carica-color_white))" />
+        <ellipse
+            transform="matrix(0.99946036,0.03284801,-0.03557845,0.99936689,0,0)"
+            cx="790.96503"
+            cy="521.34875"
+            rx="8.0082188"
+            ry="14.80377"
+            fill="var(--carica_eyeshine-color, var(--carica-color_white))" />
+        <path
+            d="m 425.20766,400.99614 c 18.73091,-15.08425 41.45831,-25.7503 77.68968,-10.73185 -32.12738,-7.53321 -55.77912,-0.37791 -77.68968,10.73185 z"
+            fill="var(--carica_hairshadow-color, var(--carica-color_undefined))" />
+        <path
+            d="m 745.07765,400.47573 c 15.79135,-7.12758 32.78934,-9.36436 50.81857,13.95483 -17.62505,-15.82159 -34.19728,-16.8056 -50.81857,-13.95483 z"
+            fill="var(--carica_hairshadow-color, var(--carica-color_undefined))" />
+    </g>
 </svg>
