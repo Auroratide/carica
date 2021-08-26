@@ -3,9 +3,13 @@ import { CaricaHead } from './head'
 import './define'
 
 describe('carica-head', () => {
-    it('rendering', async () => {
-        const el = await fixture<CaricaHead>(html`<carica-head></carica-head>`)
+    it('src provided', async () => {
+        const el = await fixture<CaricaHead>(html`
+            <carica-head></carica-head>
+        `)
 
-        expect(el).not.to.be.null
+        await new Promise(resolve => setTimeout(resolve, 10))
+
+        expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 })
