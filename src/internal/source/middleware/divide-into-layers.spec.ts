@@ -21,27 +21,48 @@ describe('divideIntoLayers', () => {
         expect(result).to.be.empty
     })
 
-    it('svg with named layers', async () => {
-        const svg = await fixture<SVGSVGElement>(html`
-            <svg viewBox="0 0 1 2">
-                <g carica:layer="something"></g>
-                <g carica:layer="else"></g>
-                <path carica:layer="something" d="" />
-            </svg>
-        `)
+    describe('svg with named layers', () => {
+        let fragment: DocumentFragment
 
-        const fragment = document.createDocumentFragment()
-        fragment.appendChild(svg)
+        beforeEach(async () => {
+            const svg = await fixture<SVGSVGElement>(html`
+                <svg viewBox="0 0 1 2">
+                    <g carica:layer="something"></g>
+                    <g carica:layer="else"></g>
+                    <path carica:layer="something" d="" />
+                </svg>
+            `)
+    
+            fragment = document.createDocumentFragment()
+            fragment.appendChild(svg)
+        })
 
-        const result = divideIntoLayers(fragment).children
+        it('preserves the viewbox', async () => {
+            const result = divideIntoLayers(fragment).children
 
-        expect(result).to.have.length(3)
-        expect(result[0].getAttribute('viewBox')).to.equal('0 0 1 2')
-        expect((result[0] as SVGElement).style.zIndex).to.equal('var(--something_layer)')
-        expect(result[1].getAttribute('viewBox')).to.equal('0 0 1 2')
-        expect((result[1] as SVGElement).style.zIndex).to.equal('var(--else_layer)')
-        expect(result[2].getAttribute('viewBox')).to.equal('0 0 1 2')
-        expect((result[2] as SVGElement).style.zIndex).to.equal('var(--something_layer)')
+            expect(result).to.have.length(3)
+            expect(result[0].getAttribute('viewBox')).to.equal('0 0 1 2')
+            expect(result[1].getAttribute('viewBox')).to.equal('0 0 1 2')
+            expect(result[2].getAttribute('viewBox')).to.equal('0 0 1 2')
+        })
+
+        it('applies z-index', async () => {
+            const result = divideIntoLayers(fragment).children
+
+            expect(result).to.have.length(3)
+            expect((result[0] as SVGElement).style.zIndex).to.equal('var(--something_layer)')
+            expect((result[1] as SVGElement).style.zIndex).to.equal('var(--else_layer)')
+            expect((result[2] as SVGElement).style.zIndex).to.equal('var(--something_layer)')
+        })
+
+        it('applies parts', async () => {
+            const result = divideIntoLayers(fragment).children
+
+            expect(result).to.have.length(3)
+            expect(result[0].getAttribute('part')).to.equal('something-layer')
+            expect(result[1].getAttribute('part')).to.equal('else-layer')
+            expect(result[2].getAttribute('part')).to.equal('something-layer')
+        })
     })
 
     it('svg with anonymous layers', async () => {

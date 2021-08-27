@@ -1,38 +1,38 @@
 import type { SourceMiddleware } from './SourceMiddleware'
+import { Layer } from '../../namespace/layer'
 
 /**
- * Expected format:
- * 
  * <svg>
- *   <g carica:layer="1"></g>
- *   <g carica:layer="2"></g>
+ *   <g carica:layer="top"></g>
+ *   <g carica:layer="bottom"></g>
+ * </svg>
+ *
+ * ...becomes...
+ *
+ * <svg part="top-layer" style="z-index: var(--top_layer);">
+ *   <g carica:layer="top"></g>
+ * </svg>
+ * <svg part="bottom-layer" style="z-index: var(--bottom_layer);">
+ *   <g carica:layer="bottom"></g>
  * </svg>
  */
 export const divideIntoLayers: SourceMiddleware = (fragment) => {
     const result = document.createDocumentFragment()
 
     Array.from(fragment.children).forEach(svg => {
-        Array.from(svg.children).forEach(layer => {
+        Array.from(svg.children).forEach(layerElem => {
+            const layer = Layer.from(layerElem as SVGElement)
+
             const svgLayer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
             svgLayer.setAttribute('viewBox', svg.getAttribute('viewBox') ?? '')
-            svgLayer.style.zIndex = getLayerValue(layer)
+            svgLayer.style.zIndex = layer?.zIndex() ?? ''
+            svgLayer.setAttribute('part', layer?.part() ?? '')
             
-            svgLayer.appendChild(layer)
+            svgLayer.appendChild(layerElem)
 
             result.appendChild(svgLayer)
         })
     })
 
     return result
-}
-
-const getLayerValue: (layer: Element) => string = (layer) => {
-    const value = layer.getAttribute('carica:layer') ?? ''
-
-    // empty or a number
-    if (/^\s*\d*\s*$/.test(value)) {
-        return value
-    } else {
-        return `var(--${value}_layer)`
-    }
 }
