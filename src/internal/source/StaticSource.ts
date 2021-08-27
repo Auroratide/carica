@@ -8,6 +8,6 @@ export class StaticSource implements CaricaSource {
     }
 
     get(): Promise<DocumentFragment> {
-        return Promise.resolve(this.template.content)
+        return Promise.resolve(this.template.content.cloneNode(true) as DocumentFragment)
     }
 }
