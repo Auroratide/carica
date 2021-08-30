@@ -1,5 +1,7 @@
 import { expect } from '@open-wc/testing'
 import { assignFill } from './assign-fill'
+import { Material } from '../../namespace/material'
+import { Shade } from '../../namespace/shade'
 
 describe('assignFill', () => {
     const withFragment = (contents: string) => {
@@ -49,8 +51,9 @@ describe('assignFill', () => {
             `)
 
             const result = assignFill(fragment).children[0]
+            const path = result.querySelector('path')!
 
-            expect(result.querySelector('path')?.style.fill).to.equal('var(--hair_fill, red)')
+            expect(path.style.fill).to.equal(new Material('hair').fill('red'))
         })
 
         it('using style', async () => {
@@ -61,8 +64,9 @@ describe('assignFill', () => {
             `)
 
             const result = assignFill(fragment).children[0]
+            const path = result.querySelector('path')!
 
-            expect(result.querySelector('path')?.style.fill).to.equal('var(--hair_fill, red)')
+            expect(path.style.fill).to.equal(new Material('hair').fill('red'))
         })
 
         it('shade defined', () => {
@@ -73,8 +77,9 @@ describe('assignFill', () => {
             `)
     
             const result = assignFill(fragment).children[0]
+            const path = result.querySelector('path')!
     
-            expect(result.querySelector('path')?.style.fill).to.equal('var(--hair-dark_fill, var(--hair_fill, red))')
+            expect(path.style.fill).to.equal(new Shade('dark', new Material('hair')).fill('red'))
         })
     })
 
@@ -92,8 +97,8 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const paths = result.querySelectorAll('path')
     
-            expect(paths[0].style.fill).to.equal('var(--hair_fill, red)')
-            expect(paths[1].style.fill).to.equal('var(--hair_fill, blue)')
+            expect(paths[0].style.fill).to.equal(new Material('hair').fill('red'))
+            expect(paths[1].style.fill).to.equal(new Material('hair').fill('blue'))
         })
 
         it('parent is the root svg', () => {
@@ -107,8 +112,8 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const paths = result.querySelectorAll('path')
     
-            expect(paths[0].style.fill).to.equal('var(--hair_fill, red)')
-            expect(paths[1].style.fill).to.equal('var(--hair_fill, blue)')
+            expect(paths[0].style.fill).to.equal(new Material('hair').fill('red'))
+            expect(paths[1].style.fill).to.equal(new Material('hair').fill('blue'))
         })
 
         it('shade is also defined on the parent', () => {
@@ -123,7 +128,7 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const path = result.querySelector('path')!
     
-            expect(path.style.fill).to.equal('var(--hair-dark_fill, var(--hair_fill, red))')
+            expect(path.style.fill).to.equal(new Shade('dark', new Material('hair')).fill('red'))
         })
 
         it('shade is defined on the node', () => {
@@ -138,7 +143,7 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const path = result.querySelector('path')!
     
-            expect(path.style.fill).to.equal('var(--hair-dark_fill, var(--hair_fill, red))')
+            expect(path.style.fill).to.equal(new Shade('dark', new Material('hair')).fill('red'))
         })
 
         it('the node overrides the parent material', () => {
@@ -153,7 +158,7 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const path = result.querySelector('path')!
     
-            expect(path.style.fill).to.equal('var(--iris_fill, red)')
+            expect(path.style.fill).to.equal(new Material('iris').fill('red'))
         })
 
         it('another parent overrides the parent material', () => {
@@ -170,7 +175,7 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const path = result.querySelector('path')!
     
-            expect(path.style.fill).to.equal('var(--iris_fill, red)')
+            expect(path.style.fill).to.equal(new Material('iris').fill('red'))
         })
     })
 
