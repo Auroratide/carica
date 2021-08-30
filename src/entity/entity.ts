@@ -1,6 +1,7 @@
 import type { CaricaSource } from '../internal/source/CaricaSource'
 import { ExternalSource } from '../internal/source/ExternalSource'
 import { divideIntoLayers } from '../internal/source/middleware/divide-into-layers'
+import { assignFill } from '../internal/source/middleware/assign-fill'
 
 export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
@@ -29,6 +30,7 @@ export class CaricaEntity extends HTMLElement {
 
     connectedCallback() {
         this.source?.get()
+            .then(assignFill)
             .then(divideIntoLayers)
             .then(this.attachLayers.bind(this))
     }
