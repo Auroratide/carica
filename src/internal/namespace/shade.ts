@@ -20,7 +20,7 @@ export class Shade {
             return this.material.fill(defaultFill)
         }
 
-        return `var(--${this.material.value}-${this.firstValue()}_fill, ${this.material.fill(defaultFill)})`
+        return `var(--${this.material.value}-${this.firstValue()}_color, ${this.material.fill(defaultFill)})`
     }
 
     static from(elem: SVGElement, fallback: Shade = Shade.NONE): Shade {

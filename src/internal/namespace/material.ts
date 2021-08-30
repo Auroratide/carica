@@ -9,7 +9,7 @@ export class Material {
 
     fill = (defaultFill: string = '') => {
         if (this.value) {
-            return `var(--${this.firstValue()}_fill${defaultFill ? ', ' : ''}${defaultFill})`
+            return `var(--${this.firstValue()}_color${defaultFill ? ', ' : ''}${defaultFill})`
         } else {
             return defaultFill
         }

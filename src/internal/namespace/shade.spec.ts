@@ -7,13 +7,13 @@ describe('carica:shade', () => {
         it('default not provided', () => {
             const shade = new Shade('dark', new Material('hair'))
 
-            expect(shade.fill()).to.equal('var(--hair-dark_fill, var(--hair_fill))')
+            expect(shade.fill()).to.equal('var(--hair-dark_color, var(--hair_color))')
         })
 
         it('default provided', () => {
             const shade = new Shade('dark', new Material('hair'))
 
-            expect(shade.fill('red')).to.equal('var(--hair-dark_fill, var(--hair_fill, red))')
+            expect(shade.fill('red')).to.equal('var(--hair-dark_color, var(--hair_color, red))')
         })
     })
 
@@ -57,20 +57,20 @@ describe('carica:shade', () => {
         it('empty', () => {
             const shade = new Shade('', new Material('hair'))
 
-            expect(shade.fill()).to.equal('var(--hair_fill)')
+            expect(shade.fill()).to.equal('var(--hair_color)')
         })
 
         it('has whitespace', () => {
             const shade = new Shade(' dark ', new Material('hair'))
 
-            expect(shade.fill()).to.equal('var(--hair-dark_fill, var(--hair_fill))')
+            expect(shade.fill()).to.equal('var(--hair-dark_color, var(--hair_color))')
         })
 
         it('multiple values', () => {
             const shade = new Shade('dark light', new Material('hair'))
 
             // Only the first is chosen
-            expect(shade.fill()).to.equal('var(--hair-dark_fill, var(--hair_fill))')
+            expect(shade.fill()).to.equal('var(--hair-dark_color, var(--hair_color))')
         })
 
         it('no material', () => {
