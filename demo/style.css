@@ -1,4 +1,6 @@
 .example {
+    --iris_fill: #2e647f;
+
     max-width: 25rem;
     margin: auto;
 }
