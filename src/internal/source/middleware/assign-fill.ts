@@ -1,5 +1,6 @@
 import type { SourceMiddleware } from './SourceMiddleware'
 import { Shade } from '../../namespace/shade'
+import { PartList } from '../../part-list'
 
 /**
  * <svg>
@@ -31,6 +32,7 @@ const setChildFills = (elem: SVGElement, parentShade: Shade | null) => {
 
     if (fill) {
         elem.style.fill = shade.fill(fill)
+        PartList.of(elem).add(...shade.parts())
     }
 
     Array.from(elem.children).forEach(child => setChildFills(child as SVGElement, shade))

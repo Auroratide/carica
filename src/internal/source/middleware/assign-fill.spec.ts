@@ -54,6 +54,7 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
 
             expect(path.style.fill).to.equal(new Material('hair').fill('red'))
+            expect(path.getAttribute('part')).to.equal('hair')
         })
 
         it('using style', async () => {
@@ -67,6 +68,7 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
 
             expect(path.style.fill).to.equal(new Material('hair').fill('red'))
+            expect(path.getAttribute('part')).to.equal('hair')
         })
 
         it('shade defined', () => {
@@ -80,6 +82,20 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
     
             expect(path.style.fill).to.equal(new Shade('dark', new Material('hair')).fill('red'))
+            expect(path.getAttribute('part')).to.equal('hair dark')
+        })
+
+        it('already has parts defined', () => {
+            const fragment = withFragment(`
+                <svg viewBox="0 0 1 2">
+                    <path part="head" carica:material="hair" style="fill: red;" d="" />
+                </svg>
+            `)
+    
+            const result = assignFill(fragment).children[0]
+            const path = result.querySelector('path')!
+    
+            expect(path.getAttribute('part')).to.equal('head hair')
         })
     })
 

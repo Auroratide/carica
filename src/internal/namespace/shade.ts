@@ -23,6 +23,14 @@ export class Shade {
         return `var(--${this.material.value}-${this.firstValue()}_color, ${this.material.fill(defaultFill)})`
     }
 
+    parts = () => {
+        if (this.material.value === Material.NONE.value) {
+            return []
+        }
+
+        return this.material.parts().concat(this.value ? [this.firstValue()] : [])
+    }
+
     static from(elem: SVGElement, fallback: Shade = Shade.NONE): Shade {
         const material = Material.from(elem) ?? fallback.material
         return new Shade(elem.getAttribute(this.attributeName) ?? fallback.value, material)

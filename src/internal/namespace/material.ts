@@ -15,6 +15,8 @@ export class Material {
         }
     }
 
+    parts = () => this.value ? [this.firstValue()] : []
+
     static from(elem: SVGElement): Material | null {
         if (elem.hasAttribute(this.attributeName)) {
             return new Material(elem.getAttribute(this.attributeName)!)

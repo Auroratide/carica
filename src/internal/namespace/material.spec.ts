@@ -16,6 +16,12 @@ describe('carica:material', () => {
         })
     })
 
+    it('parts', () => {
+        const material = new Material('hair')
+
+        expect(material.parts()).to.deep.equal(['hair'])
+    })
+
     describe('factory', () => {
         it('material is defined', () => {
             const elem = document.createElementNS('http://www.w3.org/2000/svg', 'path')
@@ -38,12 +44,14 @@ describe('carica:material', () => {
 
             expect(material.fill()).to.equal('')
             expect(material.fill('red')).to.equal('red')
+            expect(material.parts()).to.deep.equal([])
         })
 
         it('has whitespace', () => {
             const material = new Material(' hair ')
 
             expect(material.fill()).to.equal('var(--hair_color)')
+            expect(material.parts()).to.deep.equal(['hair'])
         })
 
         it('multiple values', () => {
@@ -51,6 +59,7 @@ describe('carica:material', () => {
 
             // Only the first is chosen
             expect(material.fill()).to.equal('var(--hair_color)')
+            expect(material.parts()).to.deep.equal(['hair'])
         })
     })
 })
