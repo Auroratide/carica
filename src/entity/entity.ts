@@ -16,7 +16,7 @@ export class CaricaEntity extends HTMLElement {
 
     static css = `
         :host {
-            display: inline-block;
+            display: block;
         }
 
         #layers > * {
