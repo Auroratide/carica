@@ -28,7 +28,7 @@ describe('divideIntoLayers', () => {
             const svg = await fixture<SVGSVGElement>(html`
                 <svg viewBox="0 0 1 2">
                     <g carica:layer="something"></g>
-                    <g carica:layer="else"></g>
+                    <g part="existing-part" carica:layer="else"></g>
                     <path carica:layer="something" d="" />
                 </svg>
             `)
@@ -60,7 +60,7 @@ describe('divideIntoLayers', () => {
 
             expect(result).to.have.length(3)
             expect(result[0].getAttribute('part')).to.equal('something-layer')
-            expect(result[1].getAttribute('part')).to.equal('else-layer')
+            expect(result[1].getAttribute('part')).to.equal('existing-part else-layer')
             expect(result[2].getAttribute('part')).to.equal('something-layer')
         })
     })

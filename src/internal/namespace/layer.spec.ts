@@ -16,17 +16,17 @@ describe('carica:layer', () => {
         })
     })
 
-    describe('part', () => {
+    describe('parts', () => {
         it('numerical value', () => {
             const layer = new Layer('1')
 
-            expect(layer.part()).to.equal('')
+            expect(layer.parts()).to.deep.equal([])
         })
 
         it('string value', () => {
             const layer = new Layer('head')
 
-            expect(layer.part()).to.equal('head-layer')
+            expect(layer.parts()).to.deep.equal(['head-layer'])
         })
     })
 
@@ -51,21 +51,21 @@ describe('carica:layer', () => {
             const layer = new Layer('')
 
             expect(layer.zIndex()).to.equal('')
-            expect(layer.part()).to.equal('')
+            expect(layer.parts()).to.deep.equal([])
         })
 
         it('numerical value with whitespace', () => {
             const layer = new Layer(' 1 ')
 
             expect(layer.zIndex()).to.equal('1')
-            expect(layer.part()).to.equal('')
+            expect(layer.parts()).to.deep.equal([])
         })
 
         it('string value with whitespace', () => {
             const layer = new Layer(' head ')
 
             expect(layer.zIndex()).to.equal('var(--head_layer)')
-            expect(layer.part()).to.equal('head-layer')
+            expect(layer.parts()).to.deep.equal(['head-layer'])
         })
 
         it('multiple numeric values', () => {
@@ -80,7 +80,7 @@ describe('carica:layer', () => {
 
             // Only the first is chosen
             expect(layer.zIndex()).to.equal('var(--head_layer)')
-            expect(layer.part()).to.equal('head-layer')
+            expect(layer.parts()).to.deep.equal(['head-layer'])
         })
     })
 })

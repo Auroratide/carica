@@ -11,9 +11,9 @@ export class Layer {
         ? this.firstValue()
         : `var(--${this.firstValue()}_layer)`
 
-    part = () => this.isNumericOrEmpty()
-        ? ''
-        : `${this.firstValue()}-layer`
+    parts = () => this.isNumericOrEmpty()
+        ? []
+        : [`${this.firstValue()}-layer`]
 
     static from(elem: SVGElement): Layer | null {
         if (elem.hasAttribute(this.attributeName)) {

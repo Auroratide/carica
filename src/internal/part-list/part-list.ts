@@ -11,6 +11,8 @@ export class PartList {
         this.set(tokens)
     }
 
+    values = () => Array.from(this.tokens())
+
     static of(elem: Element): PartList {
         return new PartList(elem)
     }

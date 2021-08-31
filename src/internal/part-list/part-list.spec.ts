@@ -33,4 +33,22 @@ describe('PartList', () => {
             expect(el.getAttribute('part')).to.equal('apple orange')
         })
     })
+
+    describe('values', () => {
+        it('empty', async () => {
+            const el = await fixture(html`<div></div>`)
+    
+            const list = PartList.of(el)
+
+            expect(list.values()).to.deep.equal([])
+        })
+
+        it('has values', async () => {
+            const el = await fixture(html`<div part="apple orange"></div>`)
+    
+            const list = PartList.of(el)
+
+            expect(list.values()).to.deep.equal(['apple', 'orange'])
+        })
+    })
 })

@@ -1,5 +1,6 @@
 import type { SourceMiddleware } from './SourceMiddleware'
 import { Layer } from '../../namespace/layer'
+import { PartList } from '../../part-list'
 
 /**
  * <svg>
@@ -26,7 +27,7 @@ export const divideIntoLayers: SourceMiddleware = (fragment) => {
             const svgLayer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
             svgLayer.setAttribute('viewBox', svg.getAttribute('viewBox') ?? '')
             svgLayer.style.zIndex = layer?.zIndex() ?? ''
-            svgLayer.setAttribute('part', layer?.part() ?? '')
+            PartList.of(svgLayer).add(...PartList.of(layerElem).values(), ...(layer?.parts() ?? []))
             
             svgLayer.appendChild(layerElem)
 
