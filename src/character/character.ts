@@ -4,8 +4,6 @@ const html = `
 
 const css = `
     :host {
-        --carica-color_undefined: #ff00ff;
-
         --back_layer: 0;
         --afore-back_layer: 4;
 
@@ -42,10 +40,4 @@ export class CaricaCharacter extends HTMLElement {
             .attachShadow({ mode: 'open' })
             .appendChild(template.content.cloneNode(true))
     }
-
-    connectedCallback() {
-        this.style.setProperty('--carica_skin-color', this.skin)
-    }
-
-    get skin(): string { return this.getAttribute('skin') ?? '' }
 }
