@@ -1,4 +1,5 @@
 import type { CaricaSource } from '../internal/source/CaricaSource'
+import { ColorAttribute } from './color-attribute'
 import { ExternalSource } from '../internal/source/ExternalSource'
 import { divideIntoLayers } from '../internal/source/middleware/divide-into-layers'
 import { assignFill } from '../internal/source/middleware/assign-fill'
@@ -7,8 +8,10 @@ export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
 
     static html = `
-        <div id="layers"></div>
-        <slot></slot>
+        <div id="container">
+            <div id="layers"></div>
+            <slot></slot>
+        </div>
     `
 
     static css = `
@@ -23,12 +26,19 @@ export class CaricaEntity extends HTMLElement {
 
     private _source: CaricaSource | null = null
 
+    protected elements = {
+        container: () => this.shadowRoot?.getElementById('container'),
+        layers: () => this.shadowRoot?.getElementById('layers')
+    }
+
     constructor() {
         super()
         this.createRoot()
     }
 
     connectedCallback() {
+        this.setAllColors()
+
         this.source?.get()
             .then(assignFill)
             .then(divideIntoLayers)
@@ -53,6 +63,20 @@ export class CaricaEntity extends HTMLElement {
         this._source = value
     }
 
+    getAllColors(): { [name: string]: ColorAttribute } {
+        const result: { [name: string]: ColorAttribute } = {}
+        const attrs = this.attributes
+        for (let i = 0; i < attrs.length; ++i) {
+            const attr = attrs[i]
+            if (ColorAttribute.isColor(attr)) {
+                const color = ColorAttribute.fromAttribute(this, attr)
+                result[color.name] = color
+            }
+        }
+
+        return result
+    }
+
     private createRoot(): ShadowRoot {
         const root = this.shadowRoot ?? this.attachShadow({ mode: 'open' })
 
@@ -70,5 +94,12 @@ export class CaricaEntity extends HTMLElement {
 
     private attachLayers(layers: DocumentFragment) {
         this.shadowRoot?.getElementById('layers')?.appendChild(layers)
+    }
+
+    private setAllColors = () => {
+        const container = this.elements.container()
+        Object.values(this.getAllColors()).forEach(color => {
+            container?.style.setProperty(`--${color.name}_color`, color.get())
+        })
     }
 }

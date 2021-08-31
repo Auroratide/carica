@@ -47,4 +47,29 @@ describe('carica-entity', () => {
             expect(path.style.fill).to.contain('var')
         })
     })
+
+    describe('color-* attributes', () => {
+        it('colors assigned before connecting', async () => {
+            const entity = new CaricaEntity()
+            entity.source = staticSvg(`
+                <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
+                    <path id="skin" carica:material="skin" style="fill: red;" d="" />
+                    <path id="hair" carica:material="hair" style="fill: blue;" d="" />
+                </svg>
+            `)
+            entity.setAttribute('color-skin', 'rgb(0, 0, 255)')
+            entity.setAttribute('color-hair', 'rgb(0, 255, 0)')
+
+            const container = await fixture<HTMLElement>(html`<div></div>`)
+            container.appendChild(entity)
+
+            await new Promise(resolve => setTimeout(resolve, 10))
+
+            const skin = entity.shadowRoot?.querySelector('#skin')!
+            const hair = entity.shadowRoot?.querySelector('#hair')!
+
+            expect(getComputedStyle(skin).fill).to.equal('rgb(0, 0, 255)')
+            expect(getComputedStyle(hair).fill).to.equal('rgb(0, 255, 0)')
+        })
+    })
 })
