@@ -42,7 +42,7 @@ export class CaricaEntity extends HTMLElement {
         this.source?.get()
             .then(assignFill)
             .then(divideIntoLayers)
-            .then(this.attachLayers.bind(this))
+            .then(this.attachLayers)
     }
 
     get src(): string { return this.getAttribute('src') ?? '' }
@@ -92,8 +92,8 @@ export class CaricaEntity extends HTMLElement {
         return root
     }
 
-    private attachLayers(layers: DocumentFragment) {
-        this.shadowRoot?.getElementById('layers')?.appendChild(layers)
+    private attachLayers = (layers: DocumentFragment) => {
+        this.elements.layers()?.appendChild(layers)
     }
 
     private setAllColors = () => {
