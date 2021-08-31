@@ -3,9 +3,13 @@ import { CaricaCharacter } from './character'
 import './define'
 
 describe('carica-character', () => {
-    it('rendering', async () => {
-        const el = await fixture<CaricaCharacter>(html`<carica-character></carica-character>`)
+    it('src provided', async () => {
+        const el = await fixture<CaricaCharacter>(html`
+            <carica-character src="example-library/hair.svg"></carica-character>
+        `)
 
-        expect(el).not.to.be.null
+        await new Promise(resolve => setTimeout(resolve, 10))
+
+        expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 })
