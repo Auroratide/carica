@@ -21,34 +21,36 @@ describe('carica-entity', () => {
         return loaded
     }
 
-    it('src provided', async () => {
-        const el = await fixture<CaricaEntity>(html`
-            <carica-entity src="example-library/hair.svg"></carica-entity>
-        `)
-
-        await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
-
-        expect(el.shadowRoot?.querySelector('svg')).to.exist
-    })
-
-    it('processes the source for customization', async () => {
-        const entity = await withStaticSvg(`
-            <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
-                <g carica:layer="head">
-                    <path carica:material="skin" style="fill: red;" d="" />
-                </g>
-                <g carica:layer="afore-head">
-                    <path carica:material="hair" carica:shade="dark" style="fill: red;" d="" />
-                </g>
-            </svg>
-        `)
-
-        // one svg for each layer
-        expect(entity.shadowRoot?.querySelectorAll('svg')).to.have.length(2)
-
-        // fill is based on a css var
-        entity.shadowRoot?.querySelectorAll('path').forEach(path => {
-            expect(path.style.fill).to.contain('var')
+    describe('source', () => {
+        it('src provided', async () => {
+            const el = await fixture<CaricaEntity>(html`
+                <carica-entity src="example-library/hair.svg"></carica-entity>
+            `)
+    
+            await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
+    
+            expect(el.shadowRoot?.querySelector('svg')).to.exist
+        })
+    
+        it('processes the source for customization', async () => {
+            const entity = await withStaticSvg(`
+                <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
+                    <g carica:layer="head">
+                        <path carica:material="skin" style="fill: red;" d="" />
+                    </g>
+                    <g carica:layer="afore-head">
+                        <path carica:material="hair" carica:shade="dark" style="fill: red;" d="" />
+                    </g>
+                </svg>
+            `)
+    
+            // one svg for each layer
+            expect(entity.shadowRoot?.querySelectorAll('svg')).to.have.length(2)
+    
+            // fill is based on a css var
+            entity.shadowRoot?.querySelectorAll('path').forEach(path => {
+                expect(path.style.fill).to.contain('var')
+            })
         })
     })
 
