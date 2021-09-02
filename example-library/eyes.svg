@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" viewBox="0 0 1000 1000">
+<svg id="eyes" xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" viewBox="0 0 1000 1000">
     <g carica:layer="face">
         <ellipse
             transform="matrix(0.99943045,0.03374568,-0.03458341,0.99940182,0,0)"

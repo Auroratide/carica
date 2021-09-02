@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" carica:material="hair" viewBox="0 0 1000 1000">
+<svg id="hair" xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" carica:material="hair" viewBox="0 0 1000 1000">
     <g carica:layer="behind-body">
         <path
             d="M 723.98395,562.47812 734.31236,303.9795 c 0,0 66.05117,-44.47724 95.39289,61.88354 29.34174,106.36078 20.68097,345.00832 -41.46743,458.73675 9.6833,-144.34664 -64.25387,-262.12167 -64.25387,-262.12167 z"
