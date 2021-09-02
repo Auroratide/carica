@@ -17,11 +17,11 @@ export class ColorAttribute {
         this.elem.setAttribute(`${ColorAttribute.PREFIX}${this.name}`, value)
     }
 
-    static isColor(attr: Attr) {
-        return attr.name.startsWith(ColorAttribute.PREFIX)
+    static isColor(name: string) {
+        return name.startsWith(ColorAttribute.PREFIX)
     }
 
-    static fromAttribute(elem: Element, attr: Attr) {
-        return new ColorAttribute(elem, attr.name.substring(ColorAttribute.PREFIX.length))
+    static fromAttributeName(elem: Element, name: string) {
+        return new ColorAttribute(elem, name.substring(ColorAttribute.PREFIX.length))
     }
 }

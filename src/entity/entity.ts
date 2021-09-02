@@ -5,6 +5,7 @@ import { divideIntoLayers } from '../internal/source/middleware/divide-into-laye
 import { assignFill } from '../internal/source/middleware/assign-fill'
 import { ElementInternals, attachInternals } from '../internal/accessibility/element-internals'
 import { LoadEvent } from '../events/load'
+import { ColorObserver } from './color-observer'
 
 export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
@@ -29,6 +30,7 @@ export class CaricaEntity extends HTMLElement {
 
     private _source: CaricaSource | null = null
     private internals: ElementInternals
+    private colorObserver: ColorObserver
 
     protected elements = {
         container: () => this.shadowRoot?.getElementById('container'),
@@ -38,13 +40,19 @@ export class CaricaEntity extends HTMLElement {
     constructor() {
         super()
         this.internals = attachInternals(this)
+        this.colorObserver = new ColorObserver(this, this.setOneColor)
         this.createRoot()
     }
 
     connectedCallback() {
         this.setAllColors()
         this.setAccessibilityTraits()
+        this.colorObserver.observe()
         this.loadSource()
+    }
+
+    disconnectedCallback() {
+        this.colorObserver.disconnect()
     }
 
     static get observedAttributes(): string[] {
@@ -83,13 +91,17 @@ export class CaricaEntity extends HTMLElement {
                 this.loadSource()
     }
 
+    color(name: string): ColorAttribute {
+        return new ColorAttribute(this, name)
+    }
+
     getAllColors(): { [name: string]: ColorAttribute } {
         const result: { [name: string]: ColorAttribute } = {}
         const attrs = this.attributes
         for (let i = 0; i < attrs.length; ++i) {
             const attr = attrs[i]
-            if (ColorAttribute.isColor(attr)) {
-                const color = ColorAttribute.fromAttribute(this, attr)
+            if (ColorAttribute.isColor(attr.name)) {
+                const color = ColorAttribute.fromAttributeName(this, attr.name)
                 result[color.name] = color
             }
         }
@@ -133,9 +145,11 @@ export class CaricaEntity extends HTMLElement {
 
     private setAllColors = () => {
         const container = this.elements.container()
-        Object.values(this.getAllColors()).forEach(color => {
-            container?.style.setProperty(`--${color.name}_color`, color.get())
-        })
+        Object.values(this.getAllColors()).forEach(color => this.setOneColor(color, container))
+    }
+
+    private setOneColor = (color: ColorAttribute, container?: HTMLElement | null) => {
+        (container ?? this.elements.container())?.style.setProperty(`--${color.name}_color`, color.get())
     }
 
     private setAccessibilityTraits = () => {

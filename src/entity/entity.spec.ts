@@ -5,6 +5,8 @@ import './define'
 import { LoadEvent } from '../events/load'
 
 describe('carica-entity', () => {
+    const rerender = () => new Promise(resolve => setTimeout(resolve, 1))
+
     describe('source', () => {
         it('src provided', async () => {
             const entity = await new EntityFixture<CaricaEntity>(`
@@ -70,6 +72,22 @@ describe('carica-entity', () => {
 
             expect(getComputedStyle(skin).fill).to.equal('rgb(0, 0, 255)')
             expect(getComputedStyle(hair).fill).to.equal('rgb(0, 255, 0)')
+        })
+
+        it('colors are altered', async () => {
+            const entity = await new EntityFixture(`
+                <carica-entity color-skin="rgb(0, 0, 255)"></carica-entity>
+            `).withStaticSvg(`
+                <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
+                    <path id="skin" carica:material="skin" style="fill: red;" d="" />
+                </svg>
+            `).mount()
+
+            entity.color('skin').set('rgb(0, 255, 0)')
+            await rerender()
+
+            const skin = entity.shadowRoot?.querySelector('#skin')!
+            expect(getComputedStyle(skin).fill).to.equal('rgb(0, 255, 0)')
         })
     })
 
