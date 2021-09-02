@@ -1,14 +1,24 @@
 import { html, fixture, expect } from '@open-wc/testing'
 import { CaricaEntity } from './entity'
 import { StaticSource } from '../internal/source/StaticSource'
+import { LoadEvent } from '../events/load'
 import './define'
 
 describe('carica-entity', () => {
-    const staticSvg = (svg: string) => {
+    const withStaticSvg = async (svg: string, setup: (entity: CaricaEntity) => void = () => {}) => {
+        const entity = new CaricaEntity()
         const template = document.createElement('template')
         template.innerHTML = svg
 
-        return new StaticSource(template)
+        entity.source = new StaticSource(template)
+        setup(entity)
+
+        const loaded = new Promise<CaricaEntity>(resolve => entity.addEventListener(LoadEvent.eventName, () => resolve(entity)))
+
+        const container = await fixture<HTMLElement>(html`<div></div>`)
+        container.appendChild(entity)
+
+        return loaded
     }
 
     it('src provided', async () => {
@@ -16,14 +26,13 @@ describe('carica-entity', () => {
             <carica-entity src="example-library/hair.svg"></carica-entity>
         `)
 
-        await new Promise(resolve => setTimeout(resolve, 10))
+        await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
 
         expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 
     it('processes the source for customization', async () => {
-        const entity = new CaricaEntity()
-        entity.source = staticSvg(`
+        const entity = await withStaticSvg(`
             <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
                 <g carica:layer="head">
                     <path carica:material="skin" style="fill: red;" d="" />
@@ -33,11 +42,6 @@ describe('carica-entity', () => {
                 </g>
             </svg>
         `)
-
-        const container = await fixture<HTMLElement>(html`<div></div>`)
-        container.appendChild(entity)
-
-        await new Promise(resolve => setTimeout(resolve, 10))
 
         // one svg for each layer
         expect(entity.shadowRoot?.querySelectorAll('svg')).to.have.length(2)
@@ -50,20 +54,15 @@ describe('carica-entity', () => {
 
     describe('color-* attributes', () => {
         it('colors assigned before connecting', async () => {
-            const entity = new CaricaEntity()
-            entity.source = staticSvg(`
+            const entity = await withStaticSvg(`
                 <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
                     <path id="skin" carica:material="skin" style="fill: red;" d="" />
                     <path id="hair" carica:material="hair" style="fill: blue;" d="" />
                 </svg>
-            `)
-            entity.setAttribute('color-skin', 'rgb(0, 0, 255)')
-            entity.setAttribute('color-hair', 'rgb(0, 255, 0)')
-
-            const container = await fixture<HTMLElement>(html`<div></div>`)
-            container.appendChild(entity)
-
-            await new Promise(resolve => setTimeout(resolve, 10))
+            `, entity => {
+                entity.setAttribute('color-skin', 'rgb(0, 0, 255)')
+                entity.setAttribute('color-hair', 'rgb(0, 255, 0)')
+            })
 
             const skin = entity.shadowRoot?.querySelector('#skin')!
             const hair = entity.shadowRoot?.querySelector('#hair')!

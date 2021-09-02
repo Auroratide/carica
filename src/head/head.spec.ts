@@ -8,8 +8,6 @@ describe('carica-head', () => {
             <carica-head></carica-head>
         `)
 
-        await new Promise(resolve => setTimeout(resolve, 10))
-
         expect(el.shadowRoot?.querySelector('svg')).to.exist
     })
 })

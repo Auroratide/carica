@@ -1,4 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing'
+import { LoadEvent } from '../events/load'
 import { CaricaCharacter } from './character'
 import './define'
 
@@ -8,7 +9,7 @@ describe('carica-character', () => {
             <carica-character src="example-library/hair.svg"></carica-character>
         `)
 
-        await new Promise(resolve => setTimeout(resolve, 10))
+        await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
 
         expect(el.shadowRoot?.querySelector('svg')).to.exist
     })

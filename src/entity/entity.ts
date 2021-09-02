@@ -4,6 +4,7 @@ import { ExternalSource } from '../internal/source/ExternalSource'
 import { divideIntoLayers } from '../internal/source/middleware/divide-into-layers'
 import { assignFill } from '../internal/source/middleware/assign-fill'
 import { ElementInternals, attachInternals } from '../internal/accessibility/element-internals'
+import { LoadEvent } from '../events/load'
 
 export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
@@ -48,6 +49,7 @@ export class CaricaEntity extends HTMLElement {
             .then(assignFill)
             .then(divideIntoLayers)
             .then(this.attachLayers)
+            .then(this.finishLoading)
     }
 
     get alt(): string { return this.getAttribute('alt') ?? '' }
@@ -102,6 +104,10 @@ export class CaricaEntity extends HTMLElement {
 
     private attachLayers = (layers: DocumentFragment) => {
         this.elements.layers()?.appendChild(layers)
+    }
+
+    private finishLoading = () => {
+        this.dispatchEvent(new LoadEvent())
     }
 
     private setAllColors = () => {
