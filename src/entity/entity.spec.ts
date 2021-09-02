@@ -97,6 +97,30 @@ describe('carica-entity', () => {
                 `).mount()
 
                 expect(entity.getAttribute('aria-label')).to.equal('label text')
+
+                // always prefer the user-defined aria-label
+                entity.alt = 'new text'
+                expect(entity.getAttribute('aria-label')).to.equal('label text')
+            })
+
+            it('alt is altered', async () => {
+                const entity = await new EntityFixture(`
+                    <carica-entity alt="first"></carica-entity>
+                `).mount()
+
+                entity.alt = 'second'
+
+                expect(entity.getAttribute('aria-label')).to.equal('second')
+            })
+
+            it('alt is added later', async () => {
+                const entity = await new EntityFixture(`
+                    <carica-entity></carica-entity>
+                `).mount()
+
+                entity.alt = 'added later'
+
+                expect(entity.getAttribute('aria-label')).to.equal('added later')
             })
         })
 

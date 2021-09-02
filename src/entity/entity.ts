@@ -48,12 +48,15 @@ export class CaricaEntity extends HTMLElement {
     }
 
     static get observedAttributes(): string[] {
-        return ['src']
+        return ['src', 'alt']
     }
 
     attributeChangedCallback(attr: string, oldValue: string, newValue: string) {
         if (attr === 'src') {
             this.source = new ExternalSource(newValue)
+        } else if (attr === 'alt') {
+            if (!this.internals.ariaLabel || this.internals.ariaLabel === oldValue)
+                this.internals.ariaLabel = newValue
         }
     }
 
