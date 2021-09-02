@@ -3,6 +3,7 @@ import { ColorAttribute } from './color-attribute'
 import { ExternalSource } from '../internal/source/ExternalSource'
 import { divideIntoLayers } from '../internal/source/middleware/divide-into-layers'
 import { assignFill } from '../internal/source/middleware/assign-fill'
+import { ElementInternals, attachInternals } from '../internal/accessibility/element-internals'
 
 export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
@@ -26,6 +27,7 @@ export class CaricaEntity extends HTMLElement {
     `
 
     private _source: CaricaSource | null = null
+    private internals: ElementInternals
 
     protected elements = {
         container: () => this.shadowRoot?.getElementById('container'),
@@ -34,17 +36,22 @@ export class CaricaEntity extends HTMLElement {
 
     constructor() {
         super()
+        this.internals = attachInternals(this)
         this.createRoot()
     }
 
     connectedCallback() {
         this.setAllColors()
+        this.setAccessibilityTraits()
 
         this.source?.get()
             .then(assignFill)
             .then(divideIntoLayers)
             .then(this.attachLayers)
     }
+
+    get alt(): string { return this.getAttribute('alt') ?? '' }
+    set alt(value: string) { this.setAttribute('alt', value) }
 
     get src(): string { return this.getAttribute('src') ?? '' }
     set src(value: string | null) {
@@ -102,5 +109,13 @@ export class CaricaEntity extends HTMLElement {
         Object.values(this.getAllColors()).forEach(color => {
             container?.style.setProperty(`--${color.name}_color`, color.get())
         })
+    }
+
+    private setAccessibilityTraits = () => {
+        if (!this.getAttribute('role')) {
+            this.setAttribute('role', 'img')
+        }
+
+        this.internals.ariaLabel = this.alt
     }
 }

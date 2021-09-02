@@ -72,4 +72,42 @@ describe('carica-entity', () => {
             expect(getComputedStyle(hair).fill).to.equal('rgb(0, 255, 0)')
         })
     })
+
+    describe('accessibility', () => {
+        describe('alt', () => {
+            it('alt provided', async () => {
+                const el = await fixture<CaricaEntity>(html`
+                    <carica-entity alt="Example alt text"></carica-entity>
+                `)
+
+                expect(el.getAttribute('aria-label')).to.equal('Example alt text')
+            })
+
+            it('alt not provided', async () => {
+                const el = await fixture<CaricaEntity>(html`
+                    <carica-entity></carica-entity>
+                `)
+
+                expect(el.getAttribute('aria-label')).to.equal('')
+            })
+        })
+
+        describe('role', () => {
+            it('role provided', async () => {
+                const el = await fixture<CaricaEntity>(html`
+                    <carica-entity role="figure" alt="Example alt text"></carica-entity>
+                `)
+
+                expect(el.getAttribute('role')).to.equal('figure')
+            })
+
+            it('role not provided', async () => {
+                const el = await fixture<CaricaEntity>(html`
+                    <carica-entity alt="Example alt text"></carica-entity>
+                `)
+
+                expect(el.getAttribute('role')).to.equal('img')
+            })
+        })
+    })
 })
