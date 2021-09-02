@@ -89,6 +89,14 @@ describe('carica-entity', () => {
 
                 expect(el.getAttribute('aria-label')).to.equal('')
             })
+
+            it('aria-label already provided', async () => {
+                const el = await fixture<CaricaEntity>(html`
+                    <carica-entity aria-label="label text" alt="alt text"></carica-entity>
+                `)
+
+                expect(el.getAttribute('aria-label')).to.equal('label text')
+            })
         })
 
         describe('role', () => {

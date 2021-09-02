@@ -122,6 +122,8 @@ export class CaricaEntity extends HTMLElement {
             this.setAttribute('role', 'img')
         }
 
-        this.internals.ariaLabel = this.alt
+        if (!this.getAttribute('aria-label')) {
+            this.internals.ariaLabel = this.alt
+        }
     }
 }
