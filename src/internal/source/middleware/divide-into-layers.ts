@@ -25,7 +25,7 @@ export const divideIntoLayers: SourceMiddleware = (fragment) => {
             const layer = Layer.from(layerElem as SVGElement)
 
             const svgLayer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-            svgLayer.setAttribute('viewBox', svg.getAttribute('viewBox') ?? '')
+            cloneAttributesExceptId(svg, svgLayer)
             svgLayer.style.zIndex = layer?.zIndex() ?? ''
             PartList.of(svgLayer).add(...PartList.of(layerElem).values(), ...(layer?.parts() ?? []))
             
@@ -36,4 +36,12 @@ export const divideIntoLayers: SourceMiddleware = (fragment) => {
     })
 
     return result
+}
+
+const cloneAttributesExceptId = (from: Element, to: Element) => {
+    for (let attr of from.attributes) {
+        if (attr.name !== 'id') {
+            to.setAttribute(attr.name, attr.value)
+        }
+    }
 }

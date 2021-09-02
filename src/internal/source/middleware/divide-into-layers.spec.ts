@@ -26,7 +26,7 @@ describe('divideIntoLayers', () => {
 
         beforeEach(async () => {
             const svg = await fixture<SVGSVGElement>(html`
-                <svg viewBox="0 0 1 2">
+                <svg id="an-id" viewBox="0 0 1 2" xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica">
                     <g carica:layer="something"></g>
                     <g part="existing-part" carica:layer="else"></g>
                     <path carica:layer="something" d="" />
@@ -35,6 +35,31 @@ describe('divideIntoLayers', () => {
     
             fragment = document.createDocumentFragment()
             fragment.appendChild(svg)
+        })
+
+        it('preserves svg attributes', async () => {
+            const result = divideIntoLayers(fragment).children
+
+            expect(result).to.have.length(3)
+
+            expect(result[0].getAttribute('viewBox')).to.equal('0 0 1 2')
+            expect(result[1].getAttribute('viewBox')).to.equal('0 0 1 2')
+            expect(result[2].getAttribute('viewBox')).to.equal('0 0 1 2')
+
+            expect(result[0].getAttribute('xmlns:carica')).to.equal('https://auroratide.com/carica')
+            expect(result[1].getAttribute('xmlns:carica')).to.equal('https://auroratide.com/carica')
+            expect(result[2].getAttribute('xmlns:carica')).to.equal('https://auroratide.com/carica')
+        })
+
+        it('does not preserve id', async () => {
+            // ids must be unique, therefore it cannot be preserved
+            const result = divideIntoLayers(fragment).children
+
+            expect(result).to.have.length(3)
+
+            expect(result[0].id).to.equal('')
+            expect(result[1].id).to.equal('')
+            expect(result[2].id).to.equal('')
         })
 
         it('preserves the viewbox', async () => {
