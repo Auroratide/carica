@@ -44,12 +44,17 @@ export class CaricaEntity extends HTMLElement {
     connectedCallback() {
         this.setAllColors()
         this.setAccessibilityTraits()
+        this.loadSource()
+    }
 
-        this.source?.get()
-            .then(assignFill)
-            .then(divideIntoLayers)
-            .then(this.attachLayers)
-            .then(this.finishLoading)
+    static get observedAttributes(): string[] {
+        return ['src']
+    }
+
+    attributeChangedCallback(attr: string, oldValue: string, newValue: string) {
+        if (attr === 'src') {
+            this.source = new ExternalSource(newValue)
+        }
     }
 
     get alt(): string { return this.getAttribute('alt') ?? '' }
@@ -71,6 +76,8 @@ export class CaricaEntity extends HTMLElement {
     }
     set source(value: CaricaSource | null) {
         this._source = value
+        if (this.isConnected)
+                this.loadSource()
     }
 
     getAllColors(): { [name: string]: ColorAttribute } {
@@ -102,8 +109,19 @@ export class CaricaEntity extends HTMLElement {
         return root
     }
 
+    private loadSource = () => {
+        return this.source?.get()
+            .then(assignFill)
+            .then(divideIntoLayers)
+            .then(this.attachLayers)
+            .then(this.finishLoading)
+    }
+
     private attachLayers = (layers: DocumentFragment) => {
-        this.elements.layers()?.appendChild(layers)
+        const parent = this.elements.layers()
+        while (parent?.hasChildNodes())
+            parent.removeChild(parent.lastChild!)
+        parent?.appendChild(layers)
     }
 
     private finishLoading = () => {
