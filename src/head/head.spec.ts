@@ -1,13 +1,14 @@
-import { html, fixture, expect } from '@open-wc/testing'
+import { expect } from '@open-wc/testing'
 import { CaricaHead } from './head'
+import { EntityFixture } from '../internal/testing/entity-fixture'
 import './define'
 
 describe('carica-head', () => {
     it('src provided', async () => {
-        const el = await fixture<CaricaHead>(html`
+        const entity = await new EntityFixture<CaricaHead>(`
             <carica-head></carica-head>
-        `)
+        `).mount()
 
-        expect(el.shadowRoot?.querySelector('svg')).to.exist
+        expect(entity.shadowRoot?.querySelector('svg')).to.exist
     })
 })

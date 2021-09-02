@@ -1,39 +1,22 @@
-import { html, fixture, expect } from '@open-wc/testing'
+import { expect } from '@open-wc/testing'
 import { CaricaEntity } from './entity'
-import { StaticSource } from '../internal/source/StaticSource'
-import { LoadEvent } from '../events/load'
+import { EntityFixture } from '../internal/testing/entity-fixture'
 import './define'
 
 describe('carica-entity', () => {
-    const withStaticSvg = async (svg: string, setup: (entity: CaricaEntity) => void = () => {}) => {
-        const entity = new CaricaEntity()
-        const template = document.createElement('template')
-        template.innerHTML = svg
-
-        entity.source = new StaticSource(template)
-        setup(entity)
-
-        const loaded = new Promise<CaricaEntity>(resolve => entity.addEventListener(LoadEvent.eventName, () => resolve(entity)))
-
-        const container = await fixture<HTMLElement>(html`<div></div>`)
-        container.appendChild(entity)
-
-        return loaded
-    }
-
     describe('source', () => {
         it('src provided', async () => {
-            const el = await fixture<CaricaEntity>(html`
+            const entity = await new EntityFixture<CaricaEntity>(`
                 <carica-entity src="example-library/hair.svg"></carica-entity>
-            `)
+            `).mount()
     
-            await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
-    
-            expect(el.shadowRoot?.querySelector('svg')).to.exist
+            expect(entity.shadowRoot?.querySelector('svg')).to.exist
         })
     
         it('processes the source for customization', async () => {
-            const entity = await withStaticSvg(`
+            const entity = await new EntityFixture<CaricaEntity>(`
+                <carica-entity></carica-entity>
+            `).withStaticSvg(`
                 <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
                     <g carica:layer="head">
                         <path carica:material="skin" style="fill: red;" d="" />
@@ -42,7 +25,7 @@ describe('carica-entity', () => {
                         <path carica:material="hair" carica:shade="dark" style="fill: red;" d="" />
                     </g>
                 </svg>
-            `)
+            `).mount()
     
             // one svg for each layer
             expect(entity.shadowRoot?.querySelectorAll('svg')).to.have.length(2)
@@ -56,15 +39,14 @@ describe('carica-entity', () => {
 
     describe('color-* attributes', () => {
         it('colors assigned before connecting', async () => {
-            const entity = await withStaticSvg(`
+            const entity = await new EntityFixture(`
+                <carica-entity color-skin="rgb(0, 0, 255)" color-hair="rgb(0, 255, 0)"></carica-entity>
+            `).withStaticSvg(`
                 <svg viewBox="0 0 1 1" xmlns:carica="https://auroratide.com/carica">
                     <path id="skin" carica:material="skin" style="fill: red;" d="" />
                     <path id="hair" carica:material="hair" style="fill: blue;" d="" />
                 </svg>
-            `, entity => {
-                entity.setAttribute('color-skin', 'rgb(0, 0, 255)')
-                entity.setAttribute('color-hair', 'rgb(0, 255, 0)')
-            })
+            `).mount()
 
             const skin = entity.shadowRoot?.querySelector('#skin')!
             const hair = entity.shadowRoot?.querySelector('#hair')!
@@ -77,45 +59,45 @@ describe('carica-entity', () => {
     describe('accessibility', () => {
         describe('alt', () => {
             it('alt provided', async () => {
-                const el = await fixture<CaricaEntity>(html`
+                const entity = await new EntityFixture(`
                     <carica-entity alt="Example alt text"></carica-entity>
-                `)
+                `).mount()
 
-                expect(el.getAttribute('aria-label')).to.equal('Example alt text')
+                expect(entity.getAttribute('aria-label')).to.equal('Example alt text')
             })
 
             it('alt not provided', async () => {
-                const el = await fixture<CaricaEntity>(html`
+                const entity = await new EntityFixture(`
                     <carica-entity></carica-entity>
-                `)
+                `).mount()
 
-                expect(el.getAttribute('aria-label')).to.equal('')
+                expect(entity.getAttribute('aria-label')).to.equal('')
             })
 
             it('aria-label already provided', async () => {
-                const el = await fixture<CaricaEntity>(html`
+                const entity = await new EntityFixture(`
                     <carica-entity aria-label="label text" alt="alt text"></carica-entity>
-                `)
+                `).mount()
 
-                expect(el.getAttribute('aria-label')).to.equal('label text')
+                expect(entity.getAttribute('aria-label')).to.equal('label text')
             })
         })
 
         describe('role', () => {
             it('role provided', async () => {
-                const el = await fixture<CaricaEntity>(html`
+                const entity = await new EntityFixture(`
                     <carica-entity role="figure" alt="Example alt text"></carica-entity>
-                `)
+                `).mount()
 
-                expect(el.getAttribute('role')).to.equal('figure')
+                expect(entity.getAttribute('role')).to.equal('figure')
             })
 
             it('role not provided', async () => {
-                const el = await fixture<CaricaEntity>(html`
+                const entity = await new EntityFixture(`
                     <carica-entity alt="Example alt text"></carica-entity>
-                `)
+                `).mount()
 
-                expect(el.getAttribute('role')).to.equal('img')
+                expect(entity.getAttribute('role')).to.equal('img')
             })
         })
     })

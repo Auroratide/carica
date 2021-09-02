@@ -1,16 +1,14 @@
-import { html, fixture, expect } from '@open-wc/testing'
-import { LoadEvent } from '../events/load'
+import { expect } from '@open-wc/testing'
+import { EntityFixture } from '../internal/testing/entity-fixture'
 import { CaricaCharacter } from './character'
 import './define'
 
 describe('carica-character', () => {
     it('src provided', async () => {
-        const el = await fixture<CaricaCharacter>(html`
+        const entity = await new EntityFixture<CaricaCharacter>(`
             <carica-character src="example-library/hair.svg"></carica-character>
-        `)
+        `).mount()
 
-        await new Promise(resolve => el.addEventListener(LoadEvent.eventName, resolve))
-
-        expect(el.shadowRoot?.querySelector('svg')).to.exist
+        expect(entity.shadowRoot?.querySelector('svg')).to.exist
     })
 })
