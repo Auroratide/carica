@@ -26,6 +26,10 @@ export class CaricaEntity extends HTMLElement {
         #layers > * {
             position: absolute;
         }
+
+        svg {
+            overflow: visible;
+        }
     `
 
     private _source: CaricaSource | null = null
