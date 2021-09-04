@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="eyes" xmlns="http://www.w3.org/2000/svg" xmlns:carica="https://auroratide.com/carica" viewBox="0 0 1000 1000">
+    <g carica:layer="face">
+        <path
+            d="m 760.92889,499.39586 c 0,0 8.23424,-2.82402 25.62754,-18.12509 -1.27899,14.78793 -16.77727,25.64062 -16.77727,25.64062 z"
+            carica:material="eyelashes"
+            fill="#111122" />
+        <path
+            d="m 474.97956,493.85022 c 0,0 10.57471,-4.88553 29.96115,-25.53385 2.89265,16.63399 -15.26066,31.95562 -15.26066,31.95562 z"
+            carica:material="eyelashes"
+            fill="#111122" />
+    </g>
+</svg>
