@@ -38,9 +38,6 @@ footer {
     text-align: center;
 }
 
-.example {
-    --iris_color: #2e647f;
-
-    max-width: 25rem;
-    margin: auto;
+carica-demo {
+    margin-bottom: 1em;
 }
