@@ -4,16 +4,29 @@
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>Carica Demo</title>
 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" />
         <link rel="stylesheet" href="demo/style.css" />
         <script type="module" src="../dist/define.js"></script>
+        <script type="module" src="demo/carica-demo.js"></script>
     </head>
     <body>
-        <carica-character class="example" alt="An example character.">
-            <carica-head color-skin="#fff0e0" color-hair="#cb803f" color-hair-dark="#8e5225">
-                <carica-hair src="example-library/hair.svg"></carica-hair>
-                <carica-eyes src="example-library/eyes.svg"></carica-eyes>
-                <carica-mouth src="example-library/mouth.svg"></carica-mouth>
-            </carica-head>
-        </carica-character>
+        <main>
+            <h1>Carica Demo</h1>
+            <carica-demo>
+                <template slot="template">
+                    <carica-character class="example" alt="An example character.">
+                        <carica-head color-skin="#fff0e0" color-hair="#cb803f" color-hair-dark="#8e5225">
+                            <carica-hair src="example-library/hair.svg"></carica-hair>
+                            <carica-eyes src="example-library/eyes.svg"></carica-eyes>
+                            <carica-mouth src="example-library/mouth.svg"></carica-mouth>
+                        </carica-head>
+                    </carica-character>
+                </template>
+            </carica-demo>
+        </main>
+        <footer>
+            <p>Made by <a href="https://auroratide.com">Timothy Foster</a></p>
+        </footer>
     </body>
 </html>

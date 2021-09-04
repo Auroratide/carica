@@ -1,3 +1,43 @@
+:root {
+    --font: 'Source Sans Pro', sans-serif;
+
+    --color-bg: hsl(0, 0%, 93%);
+    --color-fg: hsl(0, 0%, 100%);
+    --color-primary: 211, 69%, 57%;
+
+    --code-font: 'Source Code Pro', monospace;
+    --code-base: hsl(0, 0%, 0%);
+    --code-tagname: hsl(195, 100%, 33%);
+    --code-keyword: hsl(217, 100%, 50%);
+    --code-string: hsl(0, 77%, 36%);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin-top: 0;
+}
+
+body {
+    font-family: var(--font);
+    padding: 0.5em;
+    background: var(--color-bg);
+}
+
+main, footer {
+    max-width: 75rem;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
 .example {
     --iris_color: #2e647f;
 
