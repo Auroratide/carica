@@ -1,8 +1,9 @@
 import { expect } from '@open-wc/testing'
 import { CaricaEntity } from './entity'
 import { EntityFixture } from '../internal/testing/entity-fixture'
-import './define'
+import { library } from '../internal/testing/example-library'
 import { LoadEvent } from '../events/load'
+import './define'
 
 describe('carica-entity', () => {
     const rerender = () => new Promise(resolve => setTimeout(resolve, 1))
@@ -10,7 +11,7 @@ describe('carica-entity', () => {
     describe('source', () => {
         it('src provided', async () => {
             const entity = await new EntityFixture<CaricaEntity>(`
-                <carica-entity src="example-library/hair.svg"></carica-entity>
+                <carica-entity src="${library.hair.medium}"></carica-entity>
             `).mount()
     
             expect(entity.shadowRoot?.querySelector('svg')).to.exist
@@ -18,7 +19,7 @@ describe('carica-entity', () => {
 
         it('src is altered', async () => {
             const entity = await new EntityFixture<CaricaEntity>(`
-                <carica-entity src="example-library/mouth.svg"></carica-entity>
+                <carica-entity src="${library.mouths.smile}"></carica-entity>
             `).mount()
 
             // the example mouth has just one layer
@@ -27,7 +28,7 @@ describe('carica-entity', () => {
             // the example hair has three layers
             const loaded = new Promise(resolve => entity.addEventListener(LoadEvent.eventName, resolve))
 
-            entity.src = 'example-library/hair.svg'
+            entity.src = library.hair.medium
             await loaded
             expect(entity.shadowRoot?.querySelectorAll('svg')).to.have.length(3)
         })
