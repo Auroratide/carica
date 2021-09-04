@@ -16,13 +16,17 @@ export class CaricaCharacter extends CaricaEntity {
                 --behind-head_layer: 20;
                 --head_layer: 24;
                 --afore-head_layer: 28;
+
+                --behind-ear_layer: 32;
+                --ear_layer: 36;
+                --afore-ear_layer: 40;
         
-                --behind-face_layer: 32;
-                --face_layer: 36;
-                --afore-face_layer: 40;
+                --behind-face_layer: 44;
+                --face_layer: 48;
+                --afore-face_layer: 52;
         
-                --behind-front_layer: 44;
-                --front_layer: 48;
+                --behind-front_layer: 56;
+                --front_layer: 60;
             }
         `
     }
