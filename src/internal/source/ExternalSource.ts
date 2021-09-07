@@ -2,6 +2,11 @@ import { CaricaSource } from './CaricaSource'
 
 const SVG_MIME = 'image/svg+xml'
 
+/**
+ * Represents a graphic at some external URL which needs to be fetched
+ * asynchronously. This handles whether the graphic is missing or cannot be
+ * retrieved, or if the graphic is invalid.
+ */
 export class ExternalSource implements CaricaSource {
     readonly url: string
 

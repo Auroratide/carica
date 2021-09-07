@@ -1,5 +1,8 @@
 import { CaricaEntity } from '../entity/entity'
 
+/**
+ * Represents a character, such as a person.
+ */
 export class CaricaCharacter extends CaricaEntity {
     static elementName = 'carica-character'
 

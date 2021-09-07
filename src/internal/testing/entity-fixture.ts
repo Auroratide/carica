@@ -3,6 +3,10 @@ import { CaricaEntity } from '../../entity/entity'
 import { LoadEvent } from '../../events/load'
 import { StaticSource } from '../source/StaticSource'
 
+/**
+ * Mounts a carica entity into a test document, waiting for any carica sources
+ * to load first.
+ */
 export class EntityFixture<T extends CaricaEntity> {
     private container: HTMLElement
     private entity: T

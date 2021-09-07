@@ -7,6 +7,15 @@ import { ElementInternals, attachInternals } from '../internal/accessibility/ele
 import { LoadEvent } from '../events/load'
 import { ColorObserver } from './color-observer'
 
+/**
+ * A visible object on a scene. Entities have physical properties such as
+ * size, color, and position. This class is the base of many different
+ * carica elements.
+ * 
+ * By default, entities are treated the same as images for the sake of
+ * accessibility. This can be overridden by defining an aria role on the
+ * element.
+ */
 export class CaricaEntity extends HTMLElement {
     static elementName = 'carica-entity'
 
@@ -72,9 +81,17 @@ export class CaricaEntity extends HTMLElement {
         }
     }
 
+    /**
+     * The accessible text for the entity. Treat this the same as alt text
+     * on an image.
+     */
     get alt(): string { return this.getAttribute('alt') ?? '' }
     set alt(value: string) { this.setAttribute('alt', value) }
 
+    /**
+     * The source url for a graphic representing this entity. See
+     * {@link CaricaEntity.source} for more.
+     */
     get src(): string { return this.getAttribute('src') ?? '' }
     set src(value: string | null) {
         if (value === null) {
@@ -86,6 +103,12 @@ export class CaricaEntity extends HTMLElement {
         }
     }
 
+    /**
+     * The source graphic to show for this entity. It is fetched when the
+     * entity is connected to a document and displayed when ready. Entities
+     * do not need to specify a source, indicating they may be composed of
+     * child entities instead.
+     */
     get source(): CaricaSource | null {
         return this._source ?? (this.src ? new ExternalSource(this.src) : null)
     }
@@ -95,10 +118,16 @@ export class CaricaEntity extends HTMLElement {
                 this.loadSource()
     }
 
+    /**
+     * @param name Name of the color
+     */
     color(name: string): ColorAttribute {
         return new ColorAttribute(this, name)
     }
 
+    /**
+     * @returns A hash map of all colors defined on this entity
+     */
     getAllColors(): { [name: string]: ColorAttribute } {
         const result: { [name: string]: ColorAttribute } = {}
         const attrs = this.attributes

@@ -1,3 +1,12 @@
+/**
+ * Represents the `part` attribute on elements in the shadow dom. This is
+ * analogous to the classList attribute.
+ * 
+ * Usage:
+ * ```typescript
+ * const parts = PartList.of(element)
+ * ```
+ */
 export class PartList {
     private elem: Element
 
@@ -5,12 +14,20 @@ export class PartList {
         this.elem = elem
     }
 
+    /**
+     * Adds parts to the element's part list. Duplicate tokens are de-duped
+     * in the final token list.
+     * @param names Tokens to add to the list of parts
+     */
     add = (...names: string[]) => {
         const tokens = this.tokens()
         names.forEach(n => tokens.add(n))
         this.set(tokens)
     }
 
+    /**
+     * @returns List of all tokens as an iterable
+     */
     values = () => Array.from(this.tokens())
 
     static of(elem: Element): PartList {

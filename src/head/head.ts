@@ -24,6 +24,9 @@ defaultHead.innerHTML = `
     </svg>
 `
 
+/**
+ * Represents the head of a character and all its facial features.
+ */
 export class CaricaHead extends CaricaEntity {
     static elementName = 'carica-head'
 
