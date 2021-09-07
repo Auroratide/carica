@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "start": "wds --node-resolve -p 3000",
     "clean": "rm -rf dist",
@@ -15,6 +16,10 @@
   "author": {
     "name": "Timothy Foster",
     "url": "https://auroratide.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Auroratide/carica"
   },
   "license": "ISC",
   "devDependencies": {
