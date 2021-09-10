@@ -22,7 +22,7 @@
 
 Produces this:
 
-![A girl with brown hair and blue eyes.](example-library/janet.svg)
+<img src="example-library/janet.svg" alt="A girl with brown hair and blue eyes."  height="256" />
 
 ## How to use Carica
 
