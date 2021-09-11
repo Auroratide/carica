@@ -12,7 +12,8 @@
     "build": "tsc",
     "postbuild": "copyfiles -u 1 -e 'src/**/*.ts' 'src/**/*' dist",
     "demo": "npm-run-all --parallel 'build -- --watch' 'start -- --watch'",
-    "test": "npm run clean && npm run build && wtr --node-resolve 'dist/**/*.spec.js'"
+    "test": "npm run clean && npm run build && wtr --node-resolve 'dist/**/*.spec.js'",
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "author": {
     "name": "Timothy Foster",
