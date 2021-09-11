@@ -1,8 +1,13 @@
 {
   "name": "@auroratide/carica",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Custom elements for embedding characters into web pages",
-  "keywords": ["carica", "character", "builder", "web components"],
+  "keywords": [
+    "carica",
+    "character",
+    "builder",
+    "web components"
+  ],
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
