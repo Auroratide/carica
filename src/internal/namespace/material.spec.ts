@@ -19,7 +19,7 @@ describe('carica:material', () => {
     it('parts', () => {
         const material = new Material('hair')
 
-        expect(material.parts()).to.deep.equal(['hair'])
+        expect(material.parts()).to.deep.equal(['hair-material'])
     })
 
     describe('factory', () => {
@@ -51,7 +51,7 @@ describe('carica:material', () => {
             const material = new Material(' hair ')
 
             expect(material.fill()).to.equal('var(--color-hair)')
-            expect(material.parts()).to.deep.equal(['hair'])
+            expect(material.parts()).to.deep.equal(['hair-material'])
         })
 
         it('multiple values', () => {
@@ -59,7 +59,7 @@ describe('carica:material', () => {
 
             // Only the first is chosen
             expect(material.fill()).to.equal('var(--color-hair)')
-            expect(material.parts()).to.deep.equal(['hair'])
+            expect(material.parts()).to.deep.equal(['hair-material'])
         })
     })
 })

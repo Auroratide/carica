@@ -31,7 +31,7 @@ export class Material {
     /**
      * A list of shadow-dom parts representing the material.
      */
-    parts = () => this.value ? [this.firstValue()] : []
+    parts = () => this.value ? [`${this.firstValue()}-material`] : []
 
     static from(elem: SVGElement): Material | null {
         if (elem.hasAttribute(this.attributeName)) {

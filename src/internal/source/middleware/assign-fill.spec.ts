@@ -54,7 +54,7 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
 
             expect(path.style.fill).to.equal(new Material('hair').fill('red'))
-            expect(path.getAttribute('part')).to.equal('hair')
+            expect(path.getAttribute('part')).to.equal('hair-material')
         })
 
         it('using style', async () => {
@@ -68,7 +68,7 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
 
             expect(path.style.fill).to.equal(new Material('hair').fill('red'))
-            expect(path.getAttribute('part')).to.equal('hair')
+            expect(path.getAttribute('part')).to.equal('hair-material')
         })
 
         it('shade defined', () => {
@@ -82,7 +82,7 @@ describe('assignFill', () => {
             const path = result.querySelector('path')!
     
             expect(path.style.fill).to.equal(new Shade('dark', new Material('hair')).fill('red'))
-            expect(path.getAttribute('part')).to.equal('hair dark')
+            expect(path.getAttribute('part')).to.equal('hair-material dark-shade')
         })
 
         it('already has parts defined', () => {
@@ -95,7 +95,7 @@ describe('assignFill', () => {
             const result = assignFill(fragment).children[0]
             const path = result.querySelector('path')!
     
-            expect(path.getAttribute('part')).to.equal('head hair')
+            expect(path.getAttribute('part')).to.equal('head hair-material')
         })
     })
 

@@ -127,7 +127,7 @@ It is also possible to use CSS to customize colors. Each material/shade combo is
   --color-hair-dark: darkred;
 }
 
-.janet ::part(hair dark) {
+.janet ::part(hair-material dark-shade) {
   fill: darkred;
 }
 ```

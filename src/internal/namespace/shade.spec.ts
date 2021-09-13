@@ -20,7 +20,7 @@ describe('carica:shade', () => {
     it('part', () => {
         const shade = new Shade('dark', new Material('hair'))
 
-        expect(shade.parts()).to.deep.equal(['hair', 'dark'])
+        expect(shade.parts()).to.deep.equal(['hair-material', 'dark-shade'])
     })
 
     describe('factory', () => {
@@ -64,14 +64,14 @@ describe('carica:shade', () => {
             const shade = new Shade('', new Material('hair'))
 
             expect(shade.fill()).to.equal('var(--color-hair)')
-            expect(shade.parts()).to.deep.equal(['hair'])
+            expect(shade.parts()).to.deep.equal(['hair-material'])
         })
 
         it('has whitespace', () => {
             const shade = new Shade(' dark ', new Material('hair'))
 
             expect(shade.fill()).to.equal('var(--color-hair-dark, var(--color-hair))')
-            expect(shade.parts()).to.deep.equal(['hair', 'dark'])
+            expect(shade.parts()).to.deep.equal(['hair-material', 'dark-shade'])
         })
 
         it('multiple values', () => {
@@ -79,7 +79,7 @@ describe('carica:shade', () => {
 
             // Only the first is chosen
             expect(shade.fill()).to.equal('var(--color-hair-dark, var(--color-hair))')
-            expect(shade.parts()).to.deep.equal(['hair', 'dark'])
+            expect(shade.parts()).to.deep.equal(['hair-material', 'dark-shade'])
         })
 
         it('no material', () => {

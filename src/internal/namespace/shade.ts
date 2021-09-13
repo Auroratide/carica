@@ -46,7 +46,7 @@ export class Shade {
             return []
         }
 
-        return this.material.parts().concat(this.value ? [this.firstValue()] : [])
+        return this.material.parts().concat(this.value ? [`${this.firstValue()}-shade`] : [])
     }
 
     static from(elem: SVGElement, fallback: Shade = Shade.NONE): Shade {
