@@ -6,13 +6,13 @@ describe('carica:material', () => {
         it('default not provided', () => {
             const material = new Material('hair')
 
-            expect(material.fill()).to.equal('var(--hair_color)')
+            expect(material.fill()).to.equal('var(--color-hair)')
         })
 
         it('default provided', () => {
             const material = new Material('hair')
 
-            expect(material.fill('red')).to.equal('var(--hair_color, red)')
+            expect(material.fill('red')).to.equal('var(--color-hair, red)')
         })
     })
 
@@ -50,7 +50,7 @@ describe('carica:material', () => {
         it('has whitespace', () => {
             const material = new Material(' hair ')
 
-            expect(material.fill()).to.equal('var(--hair_color)')
+            expect(material.fill()).to.equal('var(--color-hair)')
             expect(material.parts()).to.deep.equal(['hair'])
         })
 
@@ -58,7 +58,7 @@ describe('carica:material', () => {
             const material = new Material('hair iris')
 
             // Only the first is chosen
-            expect(material.fill()).to.equal('var(--hair_color)')
+            expect(material.fill()).to.equal('var(--color-hair)')
             expect(material.parts()).to.deep.equal(['hair'])
         })
     })

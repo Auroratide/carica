@@ -22,7 +22,7 @@ export class Material {
      */
     fill = (defaultFill: string = '') => {
         if (this.value) {
-            return `var(--${this.firstValue()}_color${defaultFill ? ', ' : ''}${defaultFill})`
+            return `var(--color-${this.firstValue()}${defaultFill ? ', ' : ''}${defaultFill})`
         } else {
             return defaultFill
         }

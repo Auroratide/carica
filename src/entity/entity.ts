@@ -182,7 +182,7 @@ export class CaricaEntity extends HTMLElement {
     }
 
     private setOneColor = (color: ColorAttribute, container?: HTMLElement | null) => {
-        (container ?? this.elements.container())?.style.setProperty(`--${color.name}_color`, color.get())
+        (container ?? this.elements.container())?.style.setProperty(`--color-${color.name}`, color.get())
     }
 
     private setAccessibilityTraits = () => {

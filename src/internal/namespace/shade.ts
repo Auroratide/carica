@@ -35,7 +35,7 @@ export class Shade {
             return this.material.fill(defaultFill)
         }
 
-        return `var(--${this.material.value}-${this.firstValue()}_color, ${this.material.fill(defaultFill)})`
+        return `var(--color-${this.material.value}-${this.firstValue()}, ${this.material.fill(defaultFill)})`
     }
 
     /**
